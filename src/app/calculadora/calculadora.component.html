@@ -1,0 +1,33 @@
+<br><div class="row">
+    <div class="col-md-12">
+        <form [formGroup]="form" (ngSubmit)="calcular()">
+            <div class="mb-3">
+                <label for="peso" class="form-label">Peso</label>
+                <input formControlName="peso" type="number" class="form-control">
+                <div style="color: red;" *ngIf="form.get('peso').invalid && (form.get('peso').dirty || form.get('peso').touched)">
+                    <div *ngIf="form.get('peso').errors['required']">Peso é obrigatório</div>
+                    <div *ngIf="form.get('peso').errors['min']">O valor mínimo é 1</div>
+                    <div *ngIf="form.get('peso').errors['max']">O valor máximo é 500</div>
+                  </div>            
+            </div>
+            <div class="mb-3">
+                <label for="altura" class="form-label">Altura</label>
+                <input formControlName="altura" type="number" class="form-control">
+                <div style="color: red;" *ngIf="form.get('altura').invalid && (form.get('altura').dirty || form.get('altura').touched)">
+                    <div *ngIf="form.get('altura').errors['required']">Altura é obrigatório</div>
+                    <div *ngIf="form.get('altura').errors['min']">O valor mínimo é 0.1</div>
+                    <div *ngIf="form.get('altura').errors['max']">O valor máximo é 3</div>
+
+                  </div>            
+            </div>
+            <button [disabled]="!form.valid" class="btn btn-primary" type="submit">Calcular</button>
+        </form>
+    </div>
+    <p>Seu IMC é: {{valorCalculado}}</p>
+    <div *ngIf="valorCalculado < '18.5'" style="color :red">Você está abaixo do peso normal!</div>
+    <div *ngIf="valorCalculado >= '18.5' && valorCalculado < '24.9'" style="color: green">Você está com peso normal!</div>
+    <div *ngIf="valorCalculado >= '25' && valorCalculado < '29.9'" style="color: red">Você está com excesso de peso!</div>
+    <div *ngIf="valorCalculado >= '30' && valorCalculado < '34.9'" style="color: red">Você está com obesidade classe I!</div>
+    <div *ngIf="valorCalculado >= '35' && valorCalculado < '39.9'" style="color: red">Você está com obesidade classe II!</div>
+    <div *ngIf="valorCalculado >='40'" style="color: red">Você está com obesidade classe III!</div>
+</div>
